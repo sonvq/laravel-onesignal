@@ -88,7 +88,7 @@ class OneSignalClient
         return $this;
     }
 
-    public function sendNotificationToUser($message, $userId, $url = null, $data = null, $buttons = null, $schedule = null) {
+    public function sendNotificationToUser($message, $userId, $heading = null, $url = null, $data = null, $buttons = null, $schedule = null) {
         $contents = array(
             "en" => $message
         );
@@ -99,6 +99,13 @@ class OneSignalClient
             'include_player_ids' => array($userId)
         );
 
+        if (isset($heading)) {
+            $headings = array(
+                "en" => $heading
+            );
+            $params['headings'] = $headings;
+        }
+        
         if (isset($url)) {
             $params['url'] = $url;
         }
@@ -118,7 +125,7 @@ class OneSignalClient
         $this->sendNotificationCustom($params);
     }
 
-    public function sendNotificationToAll($message, $url = null, $data = null, $buttons = null, $schedule = null) {
+    public function sendNotificationToAll($message, $heading = null, $url = null, $data = null, $buttons = null, $schedule = null) {
         $contents = array(
             "en" => $message
         );
@@ -129,6 +136,13 @@ class OneSignalClient
             'included_segments' => array('All')
         );
 
+        if (isset($heading)) {
+            $headings = array(
+                "en" => $heading
+            );
+            $params['headings'] = $headings;
+        }
+        
         if (isset($url)) {
             $params['url'] = $url;
         }
